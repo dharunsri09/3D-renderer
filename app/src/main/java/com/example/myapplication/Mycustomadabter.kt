@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -18,6 +19,7 @@ class Mycustomadabter(private val ctx: Context,private val arrayList:ArrayList<M
 
         val imageView:ImageView=view.findViewById(R.id.list_item)
         val txt:TextView=view.findViewById(R.id.list_text)
+
 
         imageView.setImageResource(arrayList[position].img)
         txt.text=arrayList[position].name

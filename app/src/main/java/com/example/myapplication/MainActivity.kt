@@ -1,18 +1,8 @@
 package com.example.myapplication
-
 import android.content.Intent
-import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.filament.utils.*;
 import android.os.Bundle
-import android.util.Log
-import android.view.Choreographer
-import android.view.LayoutInflater
-import android.view.SurfaceView
-import android.widget.ListView
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.google.android.filament.Skybox
-import java.nio.ByteBuffer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,8 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val myList= mutableListOf<Mydata>()
-
         val assetManager = this.assets
 
         // Get a list of all the files in the assets folder.
@@ -34,17 +22,21 @@ class MainActivity : AppCompatActivity() {
 
         if (taleFile != null) {
             for(f in taleFile){
-                if(f.contains(".glb")||f.contains(".gltf")){
+                if(f.contains(".glb")){
                     fileNames.add(f)
                 }
             }
         }
 
+        binding.floatingActionButton1.setOnClickListener{
+            val intent=Intent(this,SlideViewer::class.java)
+            intent.putExtra("name",fileNames)
+            startActivity(intent)
+        }
+
         userArrayList= ArrayList()
-        if (fileNames != null) {
-            for (fileName in fileNames) {
-                    userArrayList.add(Mydata(R.drawable.download,fileName))
-            }
+        for (fileName in fileNames) {
+                userArrayList.add(Mydata(R.drawable.download,fileName))
         }
         binding.listview.isClickable=true
         binding.listview.adapter=Mycustomadabter(this,userArrayList)
